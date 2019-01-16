@@ -1,0 +1,44 @@
+---
+###################################################
+###################################################
+####        Created By: Derrick Johnson        ####
+####             Date: 12/12/2018              ####
+###################################################
+###################################################
+- name: FMC Objects
+  connection: local
+  vars:
+    login_params: &login_info
+      username: "username"
+      password: "password"
+      hostname: "1.1.1.1"
+      state: "{{ state }}"
+      validate_certs: "no"
+
+  block:
+   - name: Add Host Objects
+     fmc_object:
+         <<: *login_info
+         objecttype: "{{ item.type }}"
+         objectname: "{{ item.name }}"
+         hostip: "{{ item.ip }}"
+     when: item.type == "Host"
+     with_items: "{{ object_list }}"
+
+   - name: Add Range Objects
+     fmc_object:
+         <<: *login_info
+         objecttype: "{{ item.type }}"
+         objectname: "{{ item.name }}"
+         rangeip: "{{ item.ip }}"
+     when: item.type == "Range"
+     with_items: "{{ object_list }}"
+
+   - name: Add Network Objects
+     fmc_object:
+       <<: *login_info
+       objecttype: "{{ item.type }}"
+       objectname: "{{ item.name }}"
+       networkip: "{{ item.ip }}"
+     when: item.type == "Network"
+     with_items: "{{ object_list }}"

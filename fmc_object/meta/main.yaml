@@ -1,0 +1,12 @@
+galaxy_info:
+  role_name: fmc_object
+  author: Derrick Johnson
+  description: Build network objects within Global domain on FMC.
+
+##############
+# Version 1.0 - Derrick Johnson
+# Created Role
+##############
+# Version:
+#
+##############
